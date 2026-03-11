@@ -227,7 +227,10 @@ def check_account_avalable(mail):
 @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
 def check_data(mailid, password1):
     # Get the update data from the request
-    data = request.json
+      if request.method == "OPTIONS":
+        return "", 200
+          
+    data = request.json or {}
     password = data.get("passcode")
     if str(mailid)[:6] == "CSE-26":
         filter = {"teamId": mailid}
