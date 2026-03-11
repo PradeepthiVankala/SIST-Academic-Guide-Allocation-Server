@@ -18,29 +18,7 @@ from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
 # CORS(app)
-# CORS(app, supports_credentials=True)
-# CORS(app, resources={r"/*": {"origins":["https://guideselection-cse.org"]}, supports_credentials=True)
-# CORS(
-#     app,
-#     resources={r"/*": {"origins": "*"}},
-#     supports_credentials=True
-# )
-
-# CORS(
-#     app,
-#     resources={r"/*": {"origins": ["https://guideselection-cse.org"]}},
-#     supports_credentials=True
-# )
-
-
-CORS(
-    app,
-    resources={r"/*": {"origins": [
-        "https://guideselection-cse.org",
-        "https://www.guideselection-cse.org"
-    ]}},
-    supports_credentials=True
-)
+CORS(app, supports_credentials=True)
 # CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
 
@@ -62,24 +40,25 @@ app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
 
 mail = Mail(app)
 
-# Elastic Mail Service
+# # Elastic Mail Service
 # app.config["MAIL_SERVER"] = "smtp.elasticemail.com"  # Replace with your email server
 # app.config["MAIL_PORT"] = 2525
-# app.config["MAIL_USE_TLS"] = False
-# app.config["MAIL_USE_SSL"] = True
+# # app.config['MAIL_USE_TLS'] = False
+# # app.config['MAIL_USE_SSL'] = True
 # app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-# app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
+# app.config["MAIL_PASSWORD"] = str(
+#     os.getenv("MAIL_PASSWORD")
 # )  # Replace with your email password
 
 
 # app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
-# app.config["MAIL_PORT"] = os.getenv("MAIL_PORT")
+# app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
 # app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
 # app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 # app.config["MAIL_USE_TLS"] = True
 # app.config["MAIL_USE_SSL"] = False
 
-mail = Mail(app)
+# mail = Mail(app)
 
 
 client = MongoClient(str(os.getenv("MONGO_URI")), server_api=ServerApi("1"))
@@ -96,7 +75,7 @@ except Exception as e:
 db = client["backup_cse_gsp_22_26"]
 
 # CORS(app)
-# CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True)
 
 
 # check health in render (hosting service)
@@ -229,7 +208,7 @@ def checkAuthentication(mailId):
 
 
 @app.route("/api/check/<string:mail>", methods=["GET"])
-def check_account_available(mail):
+def check_account_avalable(mail):
     collection = db.users
     filter = {"email": mail}
     result = collection.find_one(filter)
@@ -240,19 +219,11 @@ def check_account_available(mail):
         return jsonify({"data": "mail not found"})
 
 
-# @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
-@app.route("/api/check/<string:mailid>", methods=["POST","OPTIONS"])
+@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
 def check_data(mailid, password1):
-
-    if request.method == "OPTIONS":
-        return "", 200
-
-    # data = request.json 
-    # password = data.get("passcode")
-
-    data = request.get_json(silent=True) or {}
+    # Get the update data from the request
+    data = request.json
     password = data.get("passcode")
-
     if str(mailid)[:6] == "CSE-26":
         filter = {"teamId": mailid}
         collection = (
@@ -316,7 +287,7 @@ def check_data(mailid, password1):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender=app.config["MAIL_USERNAME"],  # Replace with your email address
+                    sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
 
