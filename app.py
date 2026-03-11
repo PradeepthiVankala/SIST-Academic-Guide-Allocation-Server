@@ -32,8 +32,8 @@ app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
 # # print(os.getenv("TEMP_MAIL"))
 # # print(os.getenv("TEMP_MAIL_PASSWORD"))
-app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
+app.config["MAIL_USERNAME"] = str(os.getenv("MAIL_USERNAME"))
+app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
 # # print(str(os.getenv("TEMP_MAIL")))
 # # print(str(os.getenv("TEMP_MAIL_PASSWORD")))
 
