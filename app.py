@@ -224,7 +224,7 @@ def check_account_avalable(mail):
         return jsonify({"data": "mail not found"})
 
 
-@@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
+@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
 def check_data(mailid, password1):
 
     if request.method == "OPTIONS":
