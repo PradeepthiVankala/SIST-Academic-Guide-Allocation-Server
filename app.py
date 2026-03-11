@@ -19,7 +19,7 @@ from pymongo.server_api import ServerApi
 app = Flask(__name__)
 # CORS(app)
 # CORS(app, supports_credentials=True)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 # CORS(
 #     app,
 #     resources={r"/*": {"origins": "*"}},
