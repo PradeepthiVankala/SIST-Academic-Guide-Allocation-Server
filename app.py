@@ -50,7 +50,7 @@ load_dotenv()
 #     os.getenv("MAIL_PASSWORD")
 # )  # Replace with your email password
 
-app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
 app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
