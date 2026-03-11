@@ -20,7 +20,6 @@ app = Flask(__name__)
 # CORS(app)
 # CORS(app, supports_credentials=True)
 CORS(
-   CORS(
     app,
     resources={r"/*": {"origins": "*"}},
     supports_credentials=True
