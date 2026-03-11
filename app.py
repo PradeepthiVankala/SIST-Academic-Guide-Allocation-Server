@@ -224,14 +224,15 @@ def check_account_avalable(mail):
         return jsonify({"data": "mail not found"})
 
 
-@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
+@@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
 def check_data(mailid, password1):
-    # Get the update data from the request
-      if request.method == "OPTIONS":
+
+    if request.method == "OPTIONS":
         return "", 200
-          
+
     data = request.json or {}
     password = data.get("passcode")
+    
     if str(mailid)[:6] == "CSE-26":
         filter = {"teamId": mailid}
         collection = (
