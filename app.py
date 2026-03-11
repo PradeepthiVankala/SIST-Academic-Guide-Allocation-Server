@@ -18,12 +18,12 @@ from pymongo.server_api import ServerApi
 
 app = Flask(__name__)
 # CORS(app)
-# CORS(app, supports_credentials=True)
-CORS(
-    app,
-    resources={r"/*": {"origins": "*"}},
-    supports_credentials=True
-)
+CORS(app, supports_credentials=True)
+# CORS(
+#     app,
+#     resources={r"/*": {"origins": "*"}},
+#     supports_credentials=True
+# )
 # CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
 
@@ -79,7 +79,7 @@ except Exception as e:
 db = client["backup_cse_gsp_22_26"]
 
 # CORS(app)
-# CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True)
 
 
 # check health in render (hosting service)
@@ -223,7 +223,7 @@ def check_account_avalable(mail):
         return jsonify({"data": "mail not found"})
 
 
-@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
+@app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST","OPTIONS"])
 def check_data(mailid, password1):
     # Get the update data from the request
     data = request.json
@@ -291,7 +291,7 @@ def check_data(mailid, password1):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+                    sender=app.config["MAIL_USERNAME"],  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
 
