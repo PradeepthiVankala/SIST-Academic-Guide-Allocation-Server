@@ -27,31 +27,31 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
+app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
 # # print(os.getenv("TEMP_MAIL"))
 # # print(os.getenv("TEMP_MAIL_PASSWORD"))
-app.config["MAIL_USERNAME"] = str(os.getenv("MAIL_USERNAME"))
-app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
+app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
+app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
 # # print(str(os.getenv("TEMP_MAIL")))
 # # print(str(os.getenv("TEMP_MAIL_PASSWORD")))
 
 
 mail = Mail(app)
 
-# # Elastic Mail Service
+# Elastic Mail Service
 # app.config["MAIL_SERVER"] = "smtp.elasticemail.com"  # Replace with your email server
 # app.config["MAIL_PORT"] = 2525
-# # app.config['MAIL_USE_TLS'] = False
-# # app.config['MAIL_USE_SSL'] = True
+# app.config["MAIL_USE_TLS"] = False
+# app.config["MAIL_USE_SSL"] = True
 # app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-# app.config["MAIL_PASSWORD"] = str(
-#     os.getenv("MAIL_PASSWORD")
+# app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
 # )  # Replace with your email password
 
-# app.config["MAIL_SERVER"] = "smtp.gmail.com"
-# app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
+
+# app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
+# app.config["MAIL_PORT"] = os.getenv("MAIL_PORT")
 # app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
 # app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 # app.config["MAIL_USE_TLS"] = True
@@ -384,7 +384,7 @@ def Send_otp(id, mailid):
     try:
         msg = Message(
             f"Your OTP is {otp}",  # Email subject
-            sender=app.config["MAIL_USERNAME"],  # Replace with your email address
+            sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
             recipients=[mailid],
         )  # Replace with the recipient's email address
         msg.body = "This is a test email sent from Flask-Mail"  # Email body
@@ -392,8 +392,8 @@ def Send_otp(id, mailid):
         mail.send(msg)
         return jsonify({"Is_Email_sent": "true", "OTP": otp})
     except Exception as e:
-        print("MAIL ERROR:",e)
-        return jsonify({"Is_Email_sent": "false","error":str(e)})
+        print(e)
+        return jsonify({"Is_Email_sent": "false"})
 
 
 @app.route("/api/delete/<string:id>", methods=["DELETE"])
