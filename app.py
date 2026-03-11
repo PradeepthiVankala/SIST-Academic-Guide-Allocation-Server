@@ -213,7 +213,7 @@ def checkAuthentication(mailId):
 
 
 @app.route("/api/check/<string:mail>", methods=["GET"])
-def check_account_avalable(mail):
+def check_account_available(mail):
     collection = db.users
     filter = {"email": mail}
     result = collection.find_one(filter)
@@ -230,9 +230,12 @@ def check_data(mailid, password1):
     if request.method == "OPTIONS":
         return "", 200
 
-    data = request.json or {}
+    # data = request.json 
+    # password = data.get("passcode")
+
+    data = request.get_json(silent=True) or {}
     password = data.get("passcode")
-    
+
     if str(mailid)[:6] == "CSE-26":
         filter = {"teamId": mailid}
         collection = (
