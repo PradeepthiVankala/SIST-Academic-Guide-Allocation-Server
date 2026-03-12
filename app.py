@@ -88,6 +88,12 @@ db = client["backup_cse_gsp_22_26"]
 # CORS(app)
 # CORS(app, supports_credentials=True)
 
+CORS(
+    app,
+    resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
+    supports_credentials=True
+)
+
 
 # check health in render (hosting service)
 @app.route("/healthz")
