@@ -239,15 +239,15 @@ def check_account_avalable(mail):
 @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
 def check_data(mailid, password1):
     # Get the update data from the request
-    # data = request.json
-    # password = data.get("passcode")
+    data = request.json
+    password = data.get("passcode")
 
-   data = request.json
+      # data = request.json
 
-   if data:
-      password = data.get("passcode")
-   else:
-      password = password1
+      # if data:
+      #   password = data.get("passcode")
+      # else:
+      #   password = password1
 
 
     if str(mailid)[:6] == "CSE-26":
