@@ -246,8 +246,8 @@ def check_data(mailid, password1):
 
    if data:
       password = data.get("passcode")
-    else:
-       password = password1
+   else:
+      password = password1
 
 
     if str(mailid)[:6] == "CSE-26":
