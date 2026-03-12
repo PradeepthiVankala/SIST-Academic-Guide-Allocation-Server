@@ -242,7 +242,7 @@ def check_data(mailid, password1):
     # data = request.json
     # password = data.get("passcode")
 
-    data = request.json
+   data = request.json
 
    if data:
       password = data.get("passcode")
