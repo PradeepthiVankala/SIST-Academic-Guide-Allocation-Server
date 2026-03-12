@@ -17,8 +17,8 @@ from pymongo.server_api import ServerApi
 
 
 app = Flask(__name__)
-CORS(app)
-# CORS(app, supports_credentials=True)
+# CORS(app)
+CORS(app, supports_credentials=True)
 # CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
 
@@ -75,7 +75,7 @@ except Exception as e:
 db = client["backup_cse_gsp_22_26"]
 
 # CORS(app)
-# CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True)
 
 
 # check health in render (hosting service)
