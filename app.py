@@ -20,9 +20,15 @@ app = Flask(__name__)
 # CORS(app)
 # CORS(app, supports_credentials=True)
 
+# CORS(
+#     app,
+#     resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}}
+# )
+
 CORS(
     app,
-    resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}}
+    resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
+    supports_credentials=True
 )
 # CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
