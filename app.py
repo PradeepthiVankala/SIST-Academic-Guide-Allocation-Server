@@ -38,13 +38,19 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_TLS"] = False
-app.config["MAIL_USE_SSL"] = True
+# app.config["MAIL_PORT"] = 465
+# app.config["MAIL_USE_TLS"] = False
+# app.config["MAIL_USE_SSL"] = True
+
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+
 # # print(os.getenv("TEMP_MAIL"))
 # # print(os.getenv("TEMP_MAIL_PASSWORD"))
-app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
+app.config["MAIL_USERNAME"] = os.getenv("ADMIN_MAILID")
+app.config["MAIL_PASSWORD"] = os.getenv("TEMP_MAIL_PASSWORD")
+app.config["MAIL_DEFAULT_SENDER"] = os.getenv("ADMIN_MAILID")
 # # print(str(os.getenv("TEMP_MAIL")))
 # # print(str(os.getenv("TEMP_MAIL_PASSWORD")))
 
@@ -313,7 +319,7 @@ def check_data(mailid, password1):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+                    sender=os.getenv("ADMIN_MAILID"),  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
 
