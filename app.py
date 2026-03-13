@@ -31,7 +31,7 @@ CORS(
 load_dotenv()
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_TLS"] = False
@@ -82,11 +82,11 @@ db = client["backup_cse_gsp_22_26"]
 # CORS(app)
 # CORS(app, supports_credentials=True)
 
-CORS(
-    app,
-    resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
-    supports_credentials=True
-)
+# CORS(
+#     app,
+#     resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
+#     supports_credentials=True
+# )
 
 
 # check health in render (hosting service)
