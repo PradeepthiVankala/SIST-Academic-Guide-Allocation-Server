@@ -417,7 +417,7 @@ def Send_otp(id, mailid):
     try:
         msg = Message(
             f"Your OTP is {otp}",  # Email subject
-            sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+            sender=os.getenv("ADMIN_MAILID"),  # Replace with your email address
             recipients=[mailid],
         )  # Replace with the recipient's email address
         msg.body = "This is a test email sent from Flask-Mail"  # Email body
