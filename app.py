@@ -203,19 +203,38 @@ def generate_token(email):
 @app.route("/checkAuthentication/<string:mailId>", methods=["GET"])
 def checkAuthentication(mailId):
     token = request.headers.get("Authorization")
-    # print(token)
+
+    if token and token.startswith("Bearer "):
+        token = token.split(" ")[1]
+
     try:
         decoded_token = jwt.decode(token, secret_key, algorithms=["HS256"])
-        print(f"{decoded_token=}")
         email = decoded_token["email"]
-        print(f"{email=}")
+
         if str(mailId) == str(email):
-            print("Authenticated")
             return jsonify({"message": "Authenticated"})
         else:
             return jsonify({"message": "Token Tampered"})
-    except:
+
+    except Exception as e:
         return jsonify({"message": "Not Authenticated"})
+
+# @app.route("/checkAuthentication/<string:mailId>", methods=["GET"])
+# def checkAuthentication(mailId):
+#     token = request.headers.get("Authorization")
+#     # print(token)
+#     try:
+#         decoded_token = jwt.decode(token, secret_key, algorithms=["HS256"])
+#         print(f"{decoded_token=}")
+#         email = decoded_token["email"]
+#         print(f"{email=}")
+#         if str(mailId) == str(email):
+#             print("Authenticated")
+#             return jsonify({"message": "Authenticated"})
+#         else:
+#             return jsonify({"message": "Token Tampered"})
+#     except:
+#         return jsonify({"message": "Not Authenticated"})
 
 
 @app.route("/api/check/<string:mail>", methods=["GET"])
