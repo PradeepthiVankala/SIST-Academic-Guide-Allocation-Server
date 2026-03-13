@@ -20,11 +20,6 @@ app = Flask(__name__)
 # CORS(app)
 # CORS(app, supports_credentials=True)
 
-# CORS(
-#     app,
-#     resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}}
-# )
-
 CORS(
     app,
     resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
@@ -41,41 +36,34 @@ app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
-
-# app.config["MAIL_PORT"] = 587
-# app.config["MAIL_USE_TLS"] = True
-# app.config["MAIL_USE_SSL"] = False
-
 # # print(os.getenv("TEMP_MAIL"))
 # # print(os.getenv("TEMP_MAIL_PASSWORD"))
-app.config["MAIL_USERNAME"] = os.getenv("ADMIN_MAILID")
-app.config["MAIL_PASSWORD"] = os.getenv("TEMP_MAIL_PASSWORD")
-# app.config["MAIL_DEFAULT_SENDER"] = os.getenv("ADMIN_MAILID")
+app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
+app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
 # # print(str(os.getenv("TEMP_MAIL")))
 # # print(str(os.getenv("TEMP_MAIL_PASSWORD")))
 
 
 mail = Mail(app)
 
-# # Elastic Mail Service
+# Elastic Mail Service
 # app.config["MAIL_SERVER"] = "smtp.elasticemail.com"  # Replace with your email server
 # app.config["MAIL_PORT"] = 2525
-# # app.config['MAIL_USE_TLS'] = False
-# # app.config['MAIL_USE_SSL'] = True
+# app.config["MAIL_USE_TLS"] = False
+# app.config["MAIL_USE_SSL"] = True
 # app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-# app.config["MAIL_PASSWORD"] = str(
-#     os.getenv("MAIL_PASSWORD")
+# app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
 # )  # Replace with your email password
 
 
 # app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
-# app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
+# app.config["MAIL_PORT"] = os.getenv("MAIL_PORT")
 # app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
 # app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 # app.config["MAIL_USE_TLS"] = True
 # app.config["MAIL_USE_SSL"] = False
 
-# mail = Mail(app)
+mail = Mail(app)
 
 
 client = MongoClient(str(os.getenv("MONGO_URI")), server_api=ServerApi("1"))
@@ -248,13 +236,12 @@ def check_data(mailid, password1):
     data = request.json
     password = data.get("passcode")
 
-      # data = request.json
+    #  data = request.get_json(silent=True)
 
-      # if data:
-      #   password = data.get("passcode")
-      # else:
-      #   password = password1
-
+    #  if data:
+    #      password = data.get("passcode")
+    #  else:
+    #     password = password1
 
     if str(mailid)[:6] == "CSE-26":
         filter = {"teamId": mailid}
@@ -319,7 +306,7 @@ def check_data(mailid, password1):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender=os.getenv("ADMIN_MAILID"),  # Replace with your email address
+                    sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
 
@@ -417,7 +404,7 @@ def Send_otp(id, mailid):
     try:
         msg = Message(
             f"Your OTP is {otp}",  # Email subject
-            sender=os.getenv("ADMIN_MAILID"),  # Replace with your email address
+            sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
             recipients=[mailid],
         )  # Replace with the recipient's email address
         msg.body = "This is a test email sent from Flask-Mail"  # Email body
