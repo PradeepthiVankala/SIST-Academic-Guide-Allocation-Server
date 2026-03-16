@@ -405,7 +405,7 @@ def check_data(mailid, password1):
                             </html>
                             """
 
-                mail.send(msg)
+                # mail.send(msg)
 
                 return jsonify(
                     {
