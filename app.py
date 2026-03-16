@@ -45,9 +45,9 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_TLS"] = False
-app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_PORT"] = 587
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
 # # print(os.getenv("TEMP_MAIL"))
 # # print(os.getenv("TEMP_MAIL_PASSWORD"))
 app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
@@ -405,8 +405,8 @@ def check_data(mailid, password1):
                             </html>
                             """
 
-                # mail.send(msg)
-
+                mail.send(msg)
+               
                 return jsonify(
                     {
                         "is_account_available": "true",
