@@ -402,7 +402,7 @@ def check_data(mailid, password1):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+                    sender="os.getenv("MAIL_SENDER"),  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
 
@@ -501,7 +501,7 @@ def Send_otp(id, mailid):
     try:
         msg = Message(
             f"Your OTP is {otp}",  # Email subject
-            sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+            sender=os.getenv("MAIL_SENDER"),  # Replace with your email address
             recipients=[mailid],
         )  # Replace with the recipient's email address
         msg.body = "This is a test email sent from Flask-Mail"  # Email body
@@ -767,7 +767,7 @@ def create_collection_single(mailId):
     try:
         msg = Message(
             "Project Submission Confirmation",  # Email subject
-            sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+            sender=os.getenv("MAIL_SENDER"),  # Replace with your email address
             recipients=[mailId],
         )  # Replace with the recipient's email address
         msg.html = f"""
@@ -905,7 +905,7 @@ def create_collection_duo(mailId1, mailId2):
     try:
         msg = Message(
             f"Project Submission Confirmation",  # Email subject
-            sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+            sender=os.getenv("MAIL_SENDER"),  # Replace with your email address
             recipients=[mailId1, mailId2],
         )  # Replace with the recipient's email address
         msg.html = f"""
@@ -1109,7 +1109,7 @@ def check_second_Person_mail(mailid):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender="guideselection.cse@sathyabama.ac.in",  # Replace with your email address
+                    sender=os.getenv("MAIL_SENDER"),  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
                 # msg.body = 'This is a test email sent from Flask-Mail'  # Email body
