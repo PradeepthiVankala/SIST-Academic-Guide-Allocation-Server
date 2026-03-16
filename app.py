@@ -402,7 +402,7 @@ def check_data(mailid, password1):
             try:
                 msg = Message(
                     "One-Time Password (OTP) for Registration",  # Email subject
-                    sender="os.getenv("MAIL_SENDER"),  # Replace with your email address
+                    sender=os.getenv("MAIL_SENDER"),  # Replace with your email address
                     recipients=[mailid],
                 )  # Replace with the recipient's email address
 
