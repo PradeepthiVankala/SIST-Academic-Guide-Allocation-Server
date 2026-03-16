@@ -65,7 +65,7 @@ app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
 app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
 app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
-)  # Replace with your email password
+  # Replace with your email password
 
 
 # app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
