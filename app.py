@@ -328,6 +328,9 @@ def check_data(mailid, password1):
                         "Is_Email_sent": "false",
                     }
                 )
+    except Exception as e:
+        print("ERROR:", e)
+        return jsonify({"error": str(e)}), 500             
 
     filter = {"email": mailid}
 
