@@ -20,10 +20,22 @@ app = Flask(__name__)
 # CORS(app)
 # CORS(app, supports_credentials=True)
 
+# CORS(
+#     app,
+#     resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
+#     supports_credentials=True
+# )
+
+
 CORS(
     app,
-    resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
-    supports_credentials=True
+    resources={r"/*": {"origins": [
+        "https://guideselection-cse.vercel.app",
+        "https://www.guideselection-cse.org",
+        "https://guideselection-cse.org"
+    ]}},
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
 # CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
@@ -82,10 +94,21 @@ db = client["backup_cse_gsp_22_26"]
 # CORS(app)
 # CORS(app, supports_credentials=True)
 
+# CORS(
+#     app,
+#     resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
+#     supports_credentials=True
+# )
+
 CORS(
     app,
-    resources={r"/api/*": {"origins": "https://www.guideselection-cse.org"}},
-    supports_credentials=True
+    resources={r"/*": {"origins": [
+        "https://guideselection-cse.vercel.app",
+        "https://www.guideselection-cse.org",
+        "https://guideselection-cse.org"
+    ]}},
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
 
 
