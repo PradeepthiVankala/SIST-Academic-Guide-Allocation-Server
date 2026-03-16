@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 import time
 import driveAPI
 import os
+import threading
 from werkzeug.utils import secure_filename
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -76,6 +77,16 @@ app.config["MAIL_USERNAME"] = os.getenv("ADMIN_MAILID")
 app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 
 mail = Mail(app)
+
+
+def send_mail_async(app, msg):
+    with app.app_context():
+        try:
+            print("Sending OTP mail...")
+            mail.send(msg)
+            print("Mail sent successfully")
+        except Exception as e:
+            print("Mail error:", e)
   # Replace with your email password
 
 
@@ -416,7 +427,8 @@ def check_data(mailid, password1):
                             </html>
                             """
 
-                mail.send(msg)
+                # mail.send(msg)
+                threading.Thread(target=send_mail_async, args=(app, msg)).start()
                
                 return jsonify(
                     {
