@@ -44,28 +44,28 @@ load_dotenv()
 
 
 app = Flask(__name__)
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 587
-app.config["MAIL_USE_TLS"] = True
-app.config["MAIL_USE_SSL"] = False
-# # print(os.getenv("TEMP_MAIL"))
-# # print(os.getenv("TEMP_MAIL_PASSWORD"))
-app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
-# # print(str(os.getenv("TEMP_MAIL")))
-# # print(str(os.getenv("TEMP_MAIL_PASSWORD")))
+# app.config["MAIL_SERVER"] = "smtp.gmail.com"
+# app.config["MAIL_PORT"] = 587
+# app.config["MAIL_USE_TLS"] = True
+# app.config["MAIL_USE_SSL"] = False
+# # # print(os.getenv("TEMP_MAIL"))
+# # # print(os.getenv("TEMP_MAIL_PASSWORD"))
+# app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
+# app.config["MAIL_PASSWORD"] = str(os.getenv("TEMP_MAIL_PASSWORD"))
+# # # print(str(os.getenv("TEMP_MAIL")))
+# # # print(str(os.getenv("TEMP_MAIL_PASSWORD")))
 
 
-mail = Mail(app)
+# mail = Mail(app)
 
 # Elastic Mail Service
-# app.config["MAIL_SERVER"] = "smtp.elasticemail.com"  # Replace with your email server
-# app.config["MAIL_PORT"] = 2525
-# app.config["MAIL_USE_TLS"] = False
-# app.config["MAIL_USE_SSL"] = True
-# app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
-# app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
-# )  # Replace with your email password
+app.config["MAIL_SERVER"] = "smtp.elasticemail.com"  # Replace with your email server
+app.config["MAIL_PORT"] = 2525
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = str(os.getenv("ADMIN_MAILID"))
+app.config["MAIL_PASSWORD"] = str(os.getenv("MAIL_PASSWORD"))
+)  # Replace with your email password
 
 
 # app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
@@ -75,7 +75,7 @@ mail = Mail(app)
 # app.config["MAIL_USE_TLS"] = True
 # app.config["MAIL_USE_SSL"] = False
 
-# mail = Mail(app)
+mail = Mail(app)
 
 
 client = MongoClient(str(os.getenv("MONGO_URI")), server_api=ServerApi("1"))
