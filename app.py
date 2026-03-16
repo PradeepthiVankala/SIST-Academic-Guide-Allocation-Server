@@ -272,11 +272,18 @@ def check_account_avalable(mail):
         return jsonify({"data": "mail not found"})
 
 
+# @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
+# def check_data(mailid, password1):
+#     # Get the update data from the request
+#     data = request.json
+#     password = data.get("passcode")
+
 @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
 def check_data(mailid, password1):
-    # Get the update data from the request
-    data = request.json
-    password = data.get("passcode")
+    try:
+        data = request.get_json(silent=True)
+        password = data.get("passcode") if data else password1
+
 
     #  data = request.get_json(silent=True)
 
