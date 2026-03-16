@@ -272,55 +272,55 @@ def check_account_avalable(mail):
         return jsonify({"data": "mail not found"})
 
 
-# @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
-# def check_data(mailid, password1):
-#     # Get the update data from the request
-#     data = request.json
-#     password = data.get("passcode")
-
 @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
 def check_data(mailid, password1):
-    try:
-        data = request.get_json(silent=True)
-        password = data.get("passcode") if data else password1
+    # Get the update data from the request
+    data = request.json
+    password = data.get("passcode")
 
-        if str(mailid)[:6] == "CSE-26":
-            filter = {"teamId": mailid}
-            collection = db.users
-            result = collection.find_one(filter)
+# @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
+# def check_data(mailid, password1):
+#     try:
+#         data = request.get_json(silent=True)
+#         password = data.get("passcode") if data else password1
 
-            if result is None:
-                return jsonify({"is_account_available": "false"})
+#         if str(mailid)[:6] == "CSE-26":
+#             filter = {"teamId": mailid}
+#             collection = db.users
+#             result = collection.find_one(filter)
 
-            token = generate_token(result["email"])
+#             if result is None:
+#                 return jsonify({"is_account_available": "false"})
 
-            if str(password) == str(result["password"]):
-                return jsonify({
-                    "is_account_available": "true",
-                    "is_password_correct": "true",
-                    "token": token,
-                    "first_time": "false",
-                    "Is_Email_sent": "false",
-                    "userEmail": result["email"],
-                    "teamId": mailid,
-                })
+#             token = generate_token(result["email"])
 
-            return jsonify({
-                "is_account_available": "true",
-                "is_password_correct": "false",
-                "first_time": "false",
-                "Is_Email_sent": "false",
-            })
+#             if str(password) == str(result["password"]):
+#                 return jsonify({
+#                     "is_account_available": "true",
+#                     "is_password_correct": "true",
+#                     "token": token,
+#                     "first_time": "false",
+#                     "Is_Email_sent": "false",
+#                     "userEmail": result["email"],
+#                     "teamId": mailid,
+#                 })
 
-        else:
-            return jsonify({
-                "is_account_available": "false",
-                "message": "Team ID not generated yet"
-            })
+#             return jsonify({
+#                 "is_account_available": "true",
+#                 "is_password_correct": "false",
+#                 "first_time": "false",
+#                 "Is_Email_sent": "false",
+#             })
 
-    except Exception as e:
-        print("ERROR:", e)
-        return jsonify({"error": str(e)}), 500
+#         else:
+#             return jsonify({
+#                 "is_account_available": "false",
+#                 "message": "Team ID not generated yet"
+#             })
+
+#     except Exception as e:
+#         print("ERROR:", e)
+#         return jsonify({"error": str(e)}), 500
 
     
 # @app.route("/api/check/<string:mailid>/<string:password1>", methods=["POST"])
@@ -376,42 +376,42 @@ def check_data(mailid, password1):
 #     #  else:
 #     #     password = password1
 
-#     if str(mailid)[:6] == "CSE-26":
-#         filter = {"teamId": mailid}
-#         collection = (
-#             db.users
-#         )  # Replace <collection_name> with the name of your collection
-#         result = collection.find_one(filter)
+    if str(mailid)[:6] == "CSE-26":
+        filter = {"teamId": mailid}
+        collection = (
+            db.users
+        )  # Replace <collection_name> with the name of your collection
+        result = collection.find_one(filter)
 
-#         # token = generate_token(result["email"])
+        # token = generate_token(result["email"])
 
-#         if result is None:
-#             return jsonify({"is_account_available": "false"})
-#         else:
-#             token = generate_token(result["email"])
+        if result is None:
+            return jsonify({"is_account_available": "false"})
+        else:
+            token = generate_token(result["email"])
 
-#             if str(password) == str(result["password"]):
-#                 return jsonify(
-#                     {
-#                         "is_account_available": "true",
-#                         "is_password_correct": "true",
-#                         "token": token,
-#                         "first_time": "false",
-#                         "Is_Email_sent": "false",
-#                         "userEmail": result["email"],
-#                         "teamId": mailid,
-#                     }
-#                 )
-#             else:
-#                 return jsonify(
-#                     {
-#                         "is_account_available": "true",
-#                         "is_password_correct": "false",
-#                         password: result["password"],
-#                         "first_time": "false",
-#                         "Is_Email_sent": "false",
-#                     }
-#                 )
+            if str(password) == str(result["password"]):
+                return jsonify(
+                    {
+                        "is_account_available": "true",
+                        "is_password_correct": "true",
+                        "token": token,
+                        "first_time": "false",
+                        "Is_Email_sent": "false",
+                        "userEmail": result["email"],
+                        "teamId": mailid,
+                    }
+                )
+            else:
+                return jsonify(
+                    {
+                        "is_account_available": "true",
+                        "is_password_correct": "false",
+                        password: result["password"],
+                        "first_time": "false",
+                        "Is_Email_sent": "false",
+                    }
+                )
 #     except Exception as e:
 #         print("ERROR:", e)
 #         return jsonify({"error": str(e)}), 500             
