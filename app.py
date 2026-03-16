@@ -75,7 +75,7 @@ mail = Mail(app)
 # app.config["MAIL_USE_TLS"] = True
 # app.config["MAIL_USE_SSL"] = False
 
-mail = Mail(app)
+# mail = Mail(app)
 
 
 client = MongoClient(str(os.getenv("MONGO_URI")), server_api=ServerApi("1"))
